@@ -505,7 +505,13 @@ public class QLDiem extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
+        if (Helper.MyValidate.isEmpty(txtMaSV, "trống mã sv")) {
+            return;
+        }
+        if (Helper.MyValidate.isNotStudenCode(txtMaSV, "Sai Định Dạng Mã SV")) {
+            return;
+        }
+        
         String sql = "delete from GRADE where MASV = ?";
         for (int i = 0; i < qldiem.size(); i++) {
             if (txtMaSV.getText().equals(qldiem.get(i).getMaSV())) {
@@ -586,6 +592,7 @@ public class QLDiem extends javax.swing.JFrame {
     }//GEN-LAST:event_btnbackActionPerformed
 
     private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
+        
         viTri++;
         if (viTri > maxa - 1) {
             viTri = maxa - 1;
@@ -614,8 +621,14 @@ public class QLDiem extends javax.swing.JFrame {
     private void cbbSVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbSVItemStateChanged
         if (cbbSV.getSelectedIndex() == 0) {
             loadDataToTableTop3();
-        } else {
+            maxa = tblQLDIEM.getRowCount();
+            clearForm();
+            viTri = -1;
+        } if (cbbSV.getSelectedIndex() == 1) {
             loadDataToTableALL();
+            clearForm();
+            maxa = tblQLDIEM.getRowCount();
+            
         }
     }//GEN-LAST:event_cbbSVItemStateChanged
 
@@ -741,6 +754,14 @@ public class QLDiem extends javax.swing.JFrame {
             return true;
         }
         return false;
+    }
+    
+    private void Chuandoan(){
+        if (cbbSV.getSelectedIndex() == 1) {
+            loadDataToTableALL();
+        }
+        
+    
     }
 
     /**

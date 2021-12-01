@@ -24,7 +24,6 @@ public class LOGIN extends javax.swing.JFrame {
     ClassOOp.User User;
     QLDiem jfarme_QLDiem;
     QLSV jfarme_QLSV;
-
     /**
      * Creates new form LOGIN
      */
@@ -169,7 +168,7 @@ public class LOGIN extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (MyValidate.isEmpty(txtUsername, "KVui Lòng Nhập Tài Khoản")) {
+        if (MyValidate.isEmpty(txtUsername, "Vui Lòng Nhập Tài Khoản")) {
             return;
         }
         if (MyValidate.isEmpty(txtPassword, "Vui Lòng Nhập Mật Khẩu")) {
@@ -278,9 +277,11 @@ public class LOGIN extends javax.swing.JFrame {
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
-    private void clear() {
+    public void clear() {
         txtPassword.setText("");
         txtUsername.setText("");
 
     }
+    
+    
 }

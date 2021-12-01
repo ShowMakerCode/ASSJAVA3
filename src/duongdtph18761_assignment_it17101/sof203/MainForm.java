@@ -19,6 +19,7 @@ public class MainForm extends javax.swing.JFrame {
     LOGIN login = new LOGIN();
     QLDiem qldiem = new QLDiem();
     QLSV qlsv = new QLSV();
+    public boolean dangnhap = false;
 
     /**
      * Creates new form MainForm
@@ -119,18 +120,20 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        login.clear();
+        dangnhap = false;
         dangnhap();
 
 
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        if (qldiem.isShowing() == true | qlsv.isShowing() == true) {
+        if (dangnhap == true) {
             Helper.MyMess.msgFalse("Vui Lòng Đăng Xuất");
             return;
         }
 
-        if (!qldiem.isShowing() | !qlsv.isShowing()) {
+        if (dangnhap == false) {
             login.setVisible(true);
         }
 
@@ -147,6 +150,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void dangnhap() {
         login.setVisible(true);
+        dangnhap = true;
         if (qldiem.isShowing()) {
             close();
         }
