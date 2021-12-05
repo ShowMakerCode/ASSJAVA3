@@ -18,6 +18,7 @@ public class ThongTinSV extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Thông Tin Sinh Viên");
+        setLocationRelativeTo(null);
         
     }
 
@@ -37,11 +38,9 @@ public class ThongTinSV extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Thông Tin Sinh Viên Code");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Hinh/anhdd.png"))); // NOI18N
-        jLabel1.setMaximumSize(new java.awt.Dimension(163, 251));
-        jLabel1.setMinimumSize(new java.awt.Dimension(163, 251));
-        jLabel1.setPreferredSize(new java.awt.Dimension(163, 251));
 
         jLabel2.setText("Họ Tên");
 
@@ -57,7 +56,7 @@ public class ThongTinSV extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)

@@ -33,6 +33,7 @@ public class QLSV extends javax.swing.JFrame {
      */
     public QLSV() {
         initComponents();
+        setTitle("Quản Lý Sinh Viên");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         con = Helper.Helper_Connection.Connec();

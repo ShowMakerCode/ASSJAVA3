@@ -313,7 +313,7 @@ public class QLDiem extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblQLDIEM);
 
-        cbbSV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 Sinh Viên Có Điểm Cao Nhất", "Danh Sách Điểm Sinh Viên", " " }));
+        cbbSV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 Sinh Viên Có Điểm Cao Nhất", "Danh Sách Điểm Sinh Viên" }));
         cbbSV.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbSVItemStateChanged(evt);
@@ -467,7 +467,7 @@ public class QLDiem extends javax.swing.JFrame {
         loadDataToTableALL();
         for (int i = 0; i < tblQLDIEM.getRowCount(); i++) {
             if (txtMaSV.getText().equals(tblQLDIEM.getValueAt(i, 0))) {
-                Helper.MyMess.msgFalse("Trùng Mã SV");
+                Helper.MyMess.msgFalse("Sinh Viên Đã Có Điểm");
                 return;
             }
 
@@ -540,8 +540,10 @@ public class QLDiem extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (ValidateFormQLD()) {
             return;}
+        
         String sql = "update GRADE set Tienganh = ? , Tinhoc = ? , GDTC = ?\n"
                 + "where MASV = ?";
+        
         for (int i = 0; i < qldiem.size(); i++) {
             if (txtMaSV.getText().equals(qldiem.get(i).getMaSV())) {
                 try {
@@ -552,8 +554,14 @@ public class QLDiem extends javax.swing.JFrame {
                     ptsm.setString(4, txtMaSV.getText());
                     if (ptsm.executeUpdate() > 0) {
                         Helper.MyMess.msgTrue("Update Thành Công");
-                        loadDataToTableALL();
-                        loadDataToTableTop3();
+                        if (cbbSV.getSelectedIndex() == 0) {
+                            loadDataToTableALL();
+                            loadDataToTableTop3();
+                        }else{
+                            loadDataToTableTop3();
+                            loadDataToTableALL();
+                        }
+                        
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -659,13 +667,22 @@ public class QLDiem extends javax.swing.JFrame {
             ResultSet rs = stm.executeQuery(sql);
             dtm.setRowCount(0);
             while (rs.next()) {
+                double dtb = rs.getDouble("DTB");
+                String aa =  String.format("%.2f", dtb);
+                if (aa.contains(".00")) {
+                    if (dtb == 10) {
+                        aa = aa.substring(0,2);
+                    }else{
+                        aa = aa.substring(0, 1);
+                    }
+                }
                 Object[] rowData = new Object[]{
                     rs.getString("MASV"),
                     rs.getString("Hoten"),
                     rs.getDouble("Tienganh"),
                     rs.getDouble("Tinhoc"),
                     rs.getDouble("GDTC"),
-                    rs.getDouble("DTB")
+                    aa
                 };
                 dtm.addRow(rowData);
             }
@@ -684,14 +701,22 @@ public class QLDiem extends javax.swing.JFrame {
             ResultSet rs = stm.executeQuery(sql);
             dtm.setRowCount(0);
             while (rs.next()) {
-                double dtb = Math.ceil(rs.getDouble("DTB"));
+                double dtb = rs.getDouble("DTB");
+                String tb =  String.format("%.2f", dtb);
+                if (tb.contains(".00")) {
+                    if (dtb == 10) {
+                        tb = tb.substring(0,2);
+                    }else{
+                        tb = tb.substring(0, 1);
+                    }
+                }
                 Object[] rowData = new Object[]{
                     rs.getString("MASV"),
                     rs.getString("Hoten"),
                     rs.getDouble("Tienganh"),
                     rs.getDouble("Tinhoc"),
                     rs.getDouble("GDTC"),
-                    dtb,};
+                    tb,};
                 dtm.addRow(rowData);
             }
             stm.close();

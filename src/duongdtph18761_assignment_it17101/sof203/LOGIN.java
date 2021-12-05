@@ -24,7 +24,6 @@ public class LOGIN extends javax.swing.JFrame {
     ClassOOp.User User;
     QLDiem jfarme_QLDiem;
     QLSV jfarme_QLSV;
-    public static  String phanquyen;
     
     /**
      * Creates new form LOGIN
@@ -196,22 +195,21 @@ public class LOGIN extends javax.swing.JFrame {
                 if (txtPassword.getText().equals(user.getPassword())) {
                     Helper.MyMess.msgTrue("Đăng Nhập Thành Công");
                     if (user.getRole().equalsIgnoreCase("admin")) {
-                        new MainForm().openqlsv();
-                        new MainForm().lbdangnhap.setText("aa");
-                        phanquyen = "Đào tạo";
+                        setdangnhap("Đào Tạo","qlsv");
+                        MainForm.qlsv.setVisible(true);
                         close();
                         return false;
                     }
                     if (user.getRole().equalsIgnoreCase("student")) {
-                        phanquyen = "Học Sinh";
-                        new MainForm().opendssv();
+                        setdangnhap("Học Sinh","dssv");
+                        MainForm.dssv.setVisible(true);
                         close();
                         return false;
                     }
 
                     if (user.getRole().equalsIgnoreCase("teacher")) {
-                        phanquyen = "Giáo Viên";
-                        new MainForm().openqldiem();
+                        setdangnhap("Đào Tạo","qldiem");
+                        MainForm.qldiem.setVisible(true);
                         close();
                         return false;
                     }
@@ -222,7 +220,11 @@ public class LOGIN extends javax.swing.JFrame {
         return true;
     }
     
-    
+    private void setdangnhap(String vaitro,String bien){
+        MainForm.lbdangnhap.setText("Đang Đăng Nhập");
+        MainForm.lbquyen.setText("Vai Trò :"+vaitro);
+        MainForm.bien = bien;
+    }
     
 //    /**
 //     * @param args the command line arguments
