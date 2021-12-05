@@ -20,10 +20,12 @@ import java.util.ArrayList;
 public class LOGIN extends javax.swing.JFrame {
 
     Connection con;
-    ArrayList<ClassOOp.User> list_user;
+    public static ArrayList<ClassOOp.User> list_user;
     ClassOOp.User User;
     QLDiem jfarme_QLDiem;
     QLSV jfarme_QLSV;
+    public static  String phanquyen;
+    
     /**
      * Creates new form LOGIN
      */
@@ -174,31 +176,8 @@ public class LOGIN extends javax.swing.JFrame {
         if (MyValidate.isEmpty(txtPassword, "Vui Lòng Nhập Mật Khẩu")) {
             return;
         }
-        
-        for (int i = 0; i < list_user.size(); i++) {
-            User user = list_user.get(i);
-            if (txtUsername.getText().equalsIgnoreCase(user.getUser())) {
-                if (txtPassword.getText().equals(user.getPassword())) {
-                    Helper.MyMess.msgTrue("Đăng Nhập Thành Công");
-                    if (user.getRole().equalsIgnoreCase("admin")) {
-                       jfarme_QLSV.setVisible(true);
-                        close();
-                        return;
-                    }
-                    if (user.getRole().equalsIgnoreCase("student")) {
-                        new DSSV().setVisible(true);
-                        close();
-                        return;
-                    }
-
-                    if (user.getRole().equalsIgnoreCase("teacher")) {
-                         jfarme_QLDiem.setVisible(true);
-                        close();
-                        return;
-                    }
-
-                }
-            }
+        if (!dangnhap()) {
+            return;
         }
         Helper.MyMess.msgFalse("Tài Khoản Hoặc Mật Khẩu Sai");
 
@@ -210,9 +189,44 @@ public class LOGIN extends javax.swing.JFrame {
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_btnCannelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    public boolean dangnhap(){
+    for (int i = 0; i < list_user.size(); i++) {
+            User user = list_user.get(i);
+            if (txtUsername.getText().equalsIgnoreCase(user.getUser())) {
+                if (txtPassword.getText().equals(user.getPassword())) {
+                    Helper.MyMess.msgTrue("Đăng Nhập Thành Công");
+                    if (user.getRole().equalsIgnoreCase("admin")) {
+                        new MainForm().openqlsv();
+                        new MainForm().lbdangnhap.setText("aa");
+                        phanquyen = "Đào tạo";
+                        close();
+                        return false;
+                    }
+                    if (user.getRole().equalsIgnoreCase("student")) {
+                        phanquyen = "Học Sinh";
+                        new MainForm().opendssv();
+                        close();
+                        return false;
+                    }
+
+                    if (user.getRole().equalsIgnoreCase("teacher")) {
+                        phanquyen = "Giáo Viên";
+                        new MainForm().openqldiem();
+                        close();
+                        return false;
+                    }
+
+                }
+            }
+        }
+        return true;
+    }
+    
+    
+    
+//    /**
+//     * @param args the command line arguments
+//     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -272,7 +286,7 @@ public class LOGIN extends javax.swing.JFrame {
 
     }
 
-    private void close() {
+    public void close() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
@@ -282,6 +296,8 @@ public class LOGIN extends javax.swing.JFrame {
         txtUsername.setText("");
 
     }
+    
+    
     
     
 }

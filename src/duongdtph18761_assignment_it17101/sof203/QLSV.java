@@ -26,6 +26,7 @@ public class QLSV extends javax.swing.JFrame {
     DefaultTableModel dtm;
     Connection con;
     private ArrayList<ClassOOp.Grade> qldiem = new ArrayList<>();
+    
 
     /**
      * Creates new form QLSV

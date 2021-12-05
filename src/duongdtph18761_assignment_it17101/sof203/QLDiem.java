@@ -7,6 +7,7 @@ package duongdtph18761_assignment_it17101.sof203;
 
 import ClassOOp.Grade;
 import ClassOOp.Students;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -760,9 +762,15 @@ public class QLDiem extends javax.swing.JFrame {
         if (cbbSV.getSelectedIndex() == 1) {
             loadDataToTableALL();
         }
-        
     
     }
+    
+    public void closer(){
+     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+     dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    
+    }
+    
 
     /**
      * @param args the command line arguments
