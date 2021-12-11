@@ -36,6 +36,7 @@ public class MainForm extends javax.swing.JFrame {
         login = new LOGIN();
         qldiem = new QLDiem();
         qlsv = new QLSV();
+        dssv = new DSSV();
         bien = "";
     }
 
@@ -231,8 +232,8 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
         if (bien.equals("")) {
-            dangnhap();
             JOptionPane.showMessageDialog(this, " vui lòng đăng nhập");
+            dangnhap();
             return;
         }
         if (bien.equals("qlsv")) {

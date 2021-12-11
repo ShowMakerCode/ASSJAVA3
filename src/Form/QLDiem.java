@@ -430,10 +430,11 @@ public class QLDiem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        
         if (Helper.MyValidate.isEmpty(txtTimMaSV, "Vui Lòng Điền Mã SV Vào Tìm Kiếm")) {
             return;
         }
-        
+        clearForm();
         try {
             String sql = "select STUDENTS.MASV,STUDENTS.Hoten,Tienganh,Tinhoc,GDTC,(Tienganh+GDTC+Tinhoc)/3 as 'DTB'\n"
                     + "from GRADE join STUDENTS on GRADE.MASV = STUDENTS.MASV where STUDENTS.MASV = ?";
@@ -441,12 +442,22 @@ public class QLDiem extends javax.swing.JFrame {
             ptrs.setString(1, txtTimMaSV.getText());
             ResultSet rs = ptrs.executeQuery();
             while (rs.next()) {
+                double dtb = rs.getDouble(6);
+                String aa =  String.format("%.2f", dtb);
+                if (aa.contains(".00")) {
+                    if (dtb == 10) {
+                        aa = aa.substring(0,2);
+                    }else{
+                        aa = aa.substring(0, 1);
+                    }
+                }
+                
                 txtMaSV.setText(rs.getString("MASV"));
                 txtHoTenSV.setText(rs.getString("Hoten"));
                 txtTiengAnh.setText(String.valueOf(rs.getDouble(3)));
                 txtTinHoc.setText(String.valueOf(rs.getDouble(4)));
                 txtGiaoDucTC.setText(String.valueOf(rs.getDouble(5)));
-                lbDTB.setText(String.valueOf(rs.getDouble(6)));
+                lbDTB.setText(aa);
                 return;
             }
         } catch (Exception e) {
@@ -561,7 +572,7 @@ public class QLDiem extends javax.swing.JFrame {
                             loadDataToTableTop3();
                             loadDataToTableALL();
                         }
-                        
+                        clearForm();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

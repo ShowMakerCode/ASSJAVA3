@@ -208,7 +208,7 @@ public class LOGIN extends javax.swing.JFrame {
                     }
 
                     if (user.getRole().equalsIgnoreCase("teacher")) {
-                        setdangnhap("Đào Tạo","qldiem");
+                        setdangnhap("Giáo Viên","qldiem");
                         MainForm.qldiem.setVisible(true);
                         close();
                         return false;
