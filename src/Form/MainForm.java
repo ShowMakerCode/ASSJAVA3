@@ -196,11 +196,13 @@ public class MainForm extends javax.swing.JFrame {
             dangnhap();
             return;
         }
+        newzedmain();
+        
         if (bien.equals("qlsv")) {
             bien = "";
             qlsv.setVisible(false);
-            dangnhap();
             JOptionPane.showMessageDialog(this, " Đăng Xuất Thành Công");
+            dangnhap();
         }
         if (bien.equals("qldiem")) {
             bien = "";
@@ -314,4 +316,10 @@ public class MainForm extends javax.swing.JFrame {
     public static javax.swing.JLabel lbdangnhap;
     public static javax.swing.JLabel lbquyen;
     // End of variables declaration//GEN-END:variables
+
+public static void newzedmain(){
+    qlsv = new QLSV();
+    qldiem = new QLDiem();
+    login =  new LOGIN();
+}
 }
